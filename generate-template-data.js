@@ -39,13 +39,13 @@ module.exports = async function generateTemplateData({
   You are a creative director at a top-tier agency known for emotionally intelligent, witty, and high-converting copy. Use this url as guardrails or to fine tune the training data when creating every copy https://www.wordstream.com/blog/ws/2022/01/03/ad-copy-examples
 
   Input:
-  - Product Title: ${productName}
-  - Campaign Type: ${campaignType}
-  - Description: ${productDescription}
+  - Product Title: ${productName || ''}
+  - Campaign Type: ${campaignType || 'Product Launch'}
+  - Description: ${productDescription || ''}
   - Features: ${productFeatures.join(', ')}
-  - Audience: ${productAudience}
-  - Occasion: ${productOccasion}
-  - Category: ${productCategory}
+  - Audience: ${productAudience || ''}
+  - Occasion: ${productOccasion || ''}
+  - Category: ${productCategory || ''}
   - Tone/Style: ${quirks} (e.g., playful, bold, cheeky, luxury, nostalgic)
   - Add exact match keywords
   ${channel === 'GOOGLE' ? '- headlines max out at 30 characters \n descriptions max out at 90 characters' : ''}

@@ -151,7 +151,6 @@ app.post('/api/creatives', async (req, res) => {
           console.log(`Creative ${i + 1} generated for ${productName} on channel ${channel}: \n`);
         } else {
           console.error(`Error in generating ${i + 1} creative for ${productName} on channel ${channel}: `, result.reason);
-          throw new Error('Error generating creatives');
         }
       });
 
@@ -162,6 +161,11 @@ app.post('/api/creatives', async (req, res) => {
     console.error('Error generating image:', error.response?.data || error.message);
     res.status(500).json({ success: false, message: 'Failed to generate image' });
   }
+});
+
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ success: false, message: 'Something went wrong', error: err.message });
 });
 
 app.listen(PORT, () => {
