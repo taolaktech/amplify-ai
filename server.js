@@ -142,7 +142,7 @@ app.post('/api/creatives', async (req, res) => {
     };
 
     const results = Promise.allSettled(
-      Array.from({ length: 4 }, () => generateTemplateData(request, tone, campaignType))
+      Array.from({ length: 6 }, () => generateTemplateData(request, tone, campaignType))
     ).then((results) => {
       const data = [];
       results.forEach((result, i) => {
