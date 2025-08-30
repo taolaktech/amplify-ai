@@ -52,25 +52,15 @@ module.exports = async function generateTemplateData({
   - Avoid repitition
   - Add Stronger Urgency/Scarcity
 
-  Output Format:
-  - ${channelDetails}
-  - Do not use any emojis 
-  - All keys should be in lowercase
-  - Only use the following structure for the output - must be strictly followed, do not add path, keywords, change the order, use a different key, or any other text.:
-  json
-  ${ channel === 'GOOGLE' ? 
-    {
-      "headline": "[Use verbs, nouns, or adjectives to describe the product or service]",
-      "description": "[A Wrike ad at the top, heavily focused on authority with words like powerful, enterprise-level security, world’s leading, and trusted.]",
-    }
-  :
-    {
-      "headline": "[Bold, thumb-stopping hook. Use emotion, curiosity, numbers, or vivid language]",
-      "sub_title": "[Complementary line that supports the headline, builds intrigue or trust]",
-      "body": "[Concise body copy under 100 characters, focused on benefit, desire, or urgency]",
-      "cta": "[Clear, action-driven CTA with personality—avoid generic phrases like 'Buy now']"
-    }
-    }
+  # OUTPUT
+Generate 6 distinct and compelling advertising variations for a project management software platform. The tone should be professional and authoritative, emphasizing power, security, and industry leadership.
+
+**Output Format Requirements:**
+- You MUST output a **valid, parsable JSON array** of exactly 6 objects.
+- Each object in the array must have exactly two keys: "headline" and "description".
+- The value for "headline" must be a string. Use verbs, nouns, or adjectives to describe the product.
+- The value for "description" must be a string. Heavily focus on authority, using words like 'powerful', 'enterprise-level security', 'world’s leading', and 'trusted'.
+- Do not include any other text, commentary, or markdown formatting like json outside of the JSON array itself. The final output should be the JSON array and nothing else.
   `;
 
   try {
@@ -82,7 +72,7 @@ module.exports = async function generateTemplateData({
             content: promptRequest
           }
         ],
-        max_tokens: 150
+       // max_tokens: 200
       }, {
         headers: {
           'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
@@ -93,7 +83,7 @@ module.exports = async function generateTemplateData({
     const prompt = response.data.choices[0].message.content.trim();
     //console.log("Ad Prompt:\n", prompt);
     
-    return JSON.parse(`${prompt}`);
+    return JSON.parse(prompt);
   } catch (error) {
     console.error("Error generating ad prompt:", error.response?.data || error.message);
     return null;

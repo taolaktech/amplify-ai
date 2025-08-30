@@ -141,24 +141,13 @@ app.post('/api/creatives', async (req, res) => {
         channel,
     };
 
-    const results = Promise.allSettled(
-      Array.from({ length: 6 }, () => generateTemplateData(request, tone, campaignType))
-    ).then((results) => {
-      const data = [];
-      results.forEach((result, i) => {
-        if (result.status === 'fulfilled') {
-          data.push(result.value);
-          console.log(`Creative ${i + 1} generated for ${productName} on channel ${channel}: \n`);
-        } else {
-          console.error(`Error in generating ${i + 1} creative for ${productName} on channel ${channel}: `, result.reason);
-        }
-      });
+    const data = await generateTemplateData(request, tone, campaignType);
+    console.log(`Creative generated for ${productName} on channel ${channel}: \n`);
 
-      res.status(200).json({ success: true, data  });
-    });
+    res.status(200).json({ success: true, data  });
   } catch (error) {
     console.log(error);
-    console.error('Error generating image:', error.response?.data || error.message);
+    console.error('Error generating creative:', error.response?.data || error.message);
     res.status(500).json({ success: false, message: 'Failed to generate image' });
   }
 });
