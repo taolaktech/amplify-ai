@@ -48,7 +48,8 @@ module.exports = async function generateTemplateData({
   - Category: ${productCategory || ''}
   - Tone/Style: ${quirks} (e.g., playful, bold, cheeky, luxury, nostalgic)
   - Add exact match keywords
-  ${channel === 'GOOGLE' ? '- One headline with max of 30 characters \n one description with max of 90 characters' : ''}
+  - One headline with max of 30 characters including spaces
+  - One description with max of 90 characters including spaces
   - Avoid repitition
   - Add Stronger Urgency/Scarcity
 
